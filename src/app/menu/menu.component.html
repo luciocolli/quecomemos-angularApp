@@ -14,12 +14,16 @@
       <button (click)="createMenu()">Crear Menu</button>
     </div>
 
-    <table>
+    <div *ngIf="menus.length === 0" class="no-menus">
+        <p>No hay menus registrados.</p>
+      </div>
+
+    <table *ngIf="menus.length > 0">
       <thead>
         <tr>
           <th>Nombre</th>
           <th>Vegetariano</th>
-          <th>Apto Celíacos</th>
+          <th>Apto Celiacos</th>
           <th>Actualizar</th>
         </tr>
       </thead>

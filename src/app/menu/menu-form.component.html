@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listado de Menús</title>
-  <link rel="stylesheet" href="./menu.component.css">
+  <title>{{ isUpdating ? 'Actualizar Menu' : 'Crear Menu' }}</title>
+    <link rel="stylesheet" href="./menu-form.component.css">
 </head>
 <body>
 
-    <h1>Crear Menu</h1>
+    <h1>{{ isUpdating ? 'Actualizar Menu' : 'Crear Menu' }}</h1>
     <h2>Ingrese los datos:</h2>
 
     <form [formGroup]="menuForm" (ngSubmit)="submit()">
         <label for="nombre">Nombre del Menú</label>
-        <input id="nombre" formControlName="nombre" type="text" />
+        <input id="nombre" formControlName="nombre" type="text" [value]="isUpdating ? menuForm.get('nombre')?.value : ''" />
     
         <label>
-        <input type="checkbox" formControlName="vegetariano" /> Vegetariano
+        <input type="checkbox" formControlName="vegetariano" [checked]="isUpdating && menuForm.get('vegetariano')?.value" /> Vegetariano
         </label>
     
         <label>
-        <input type="checkbox" formControlName="aptoCeliacos" /> Apto para Celíacos
+        <input type="checkbox" formControlName="aptoCeliacos" [checked]="isUpdating && menuForm.get('aptoCeliacos')?.value" /> Apto para Celiacos
         </label>
     
-        <label for="menuDelDiaId">Menú del Día</label>
-        <select id="menuDelDiaId" formControlName="menuDelDiaId">
+        <label for="menuDelDiaId">Menu del Dia</label>
+        <select id="menuDelDiaId" formControlName="menuDelDiaId" [value]="isUpdating ? menuForm.get('menuDelDiaId')?.value : null">
         <option *ngFor="let menuDelDia of menusDelDia" [value]="menuDelDia.id">
             {{ menuDelDia.id }}
         </option>
@@ -35,12 +35,14 @@
         <input 
             type="checkbox" 
             [value]="comida.id" 
-            (change)="onComidaChange($event)" 
+            (change)="onComidaChange($event)"
+            [checked]="isUpdating && menuForm.get('comidaIds')?.value?.includes(comida.id)" 
         /> 
         {{ comida.nombre }}
         </div>
     
-        <button type="submit">Guardar</button>
+        <button type="submit">{{ isUpdating ? 'Actualizar' : 'Crear' }}</button>
+        <button type="button" (click)="navigateToMenus()" >Volver a Menus</button>
     </form>
 
 </body>

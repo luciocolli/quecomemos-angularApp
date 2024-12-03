@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MenuService {
-  private url = 'http://localhost:8080/menus/seguro';
+  private url = 'http://localhost:8080/menus';
 
   constructor(private http: HttpClient) { }
 

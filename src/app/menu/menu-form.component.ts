@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuService } from '../services/menu.service';
 import { ComidaService } from '../services/comida.service';
 
 @Component({
   selector: 'app-menu-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './menu-form.component.html',
-  styleUrls: ['./menu-form.component.css']
+  styleUrls: []
 })
 export class MenuFormComponent implements OnInit {
   menuForm: FormGroup;
@@ -27,8 +30,8 @@ export class MenuFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comidaService.getComidas().subscribe(data => this.comidas = data);  // falta implementar el servicio getComidas
-    this.menuDelDiaService.getMenusDelDia().subscribe(data => this.menusDelDia = data);  // debo crear un endpoint que me traiga los menus del dia
+    //this.comidaService.getComidas().subscribe(data => this.comidas = data);  // falta implementar el servicio getComidas
+    //this.menuDelDiaService.getMenusDelDia().subscribe(data => this.menusDelDia = data);  // debo crear un endpoint que me traiga los menus del dia
     
     // Detectar si estamos editando
     this.route.paramMap.subscribe(params => {
@@ -78,6 +81,10 @@ export class MenuFormComponent implements OnInit {
     } else {
       this.menuForm.get('comidaIds')?.setValue(comidaIds.filter((id: string) => id !== target.value));
     }
+  }
+
+  navigateToMenus() {
+    this.router.navigate(['/menus']);
   }
 
 
