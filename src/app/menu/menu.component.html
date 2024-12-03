@@ -1,1 +1,39 @@
-<p>menu works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Menús</title>
+  <link rel="stylesheet" href="./menu.component.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Menus</h1>
+    
+    <div class="actions">
+      <button (click)="createMenu()">Crear Menu</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Vegetariano</th>
+          <th>Apto Celíacos</th>
+          <th>Actualizar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let menu of menus">
+          <td>{{ menu.nombre }}</td>
+          <td>{{ menu.vegetariano ? 'Si' : 'No' }}</td>
+          <td>{{ menu.aptoCeliacos ? 'Si' : 'No' }}</td>
+          <td>
+            <button (click)="updateMenu(menu.id)">Actualizar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

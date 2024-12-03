@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Menús</title>
+  <link rel="stylesheet" href="./menu.component.css">
+</head>
+<body>
+
+    <h1>Crear Menu</h1>
+    <h2>Ingrese los datos:</h2>
+
+    <form [formGroup]="menuForm" (ngSubmit)="submit()">
+        <label for="nombre">Nombre del Menú</label>
+        <input id="nombre" formControlName="nombre" type="text" />
+    
+        <label>
+        <input type="checkbox" formControlName="vegetariano" /> Vegetariano
+        </label>
+    
+        <label>
+        <input type="checkbox" formControlName="aptoCeliacos" /> Apto para Celíacos
+        </label>
+    
+        <label for="menuDelDiaId">Menú del Día</label>
+        <select id="menuDelDiaId" formControlName="menuDelDiaId">
+        <option *ngFor="let menuDelDia of menusDelDia" [value]="menuDelDia.id">
+            {{ menuDelDia.id }}
+        </option>
+        </select>
+    
+        <label>Comidas</label>
+        <div *ngFor="let comida of comidas">
+        <input 
+            type="checkbox" 
+            [value]="comida.id" 
+            (change)="onComidaChange($event)" 
+        /> 
+        {{ comida.nombre }}
+        </div>
+    
+        <button type="submit">Guardar</button>
+    </form>
+
+</body>
