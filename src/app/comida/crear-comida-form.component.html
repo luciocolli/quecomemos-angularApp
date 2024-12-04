@@ -1,1 +1,30 @@
-<p>crear-comida-form works!</p>
+<div *ngIf="successMessage" class="message success">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="message error">
+  {{ errorMessage }}
+</div>
+
+<h1>{{ isUpdating ? "Actualizar Comida" : "Crear Comida" }}</h1>
+<h2>Ingrese los datos:</h2>
+
+<form [formGroup]="comidaForm" (ngSubmit)="submit()">
+  <label for="nombre">Nombre de la comida</label>
+  <input
+    id="nombre"
+    formControlName="nombre"
+    type="text"
+    [value]="isUpdating ? comidaForm.get('nombre')?.value : ''"
+  />
+
+  <label for="precio">Precio</label>
+  <input
+    id="precio"
+    formControlName="precio"
+    type="number"
+    [value]="isUpdating ? comidaForm.get('precio')?.value : ''"
+  />
+
+  <button type="submit">{{ isUpdating ? "Actualizar" : "Crear" }}</button>
+  <button type="button" (click)="navigateToComidas()">Volver a Comidas</button>
+</form>

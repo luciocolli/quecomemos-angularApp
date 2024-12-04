@@ -12,7 +12,7 @@ import { ComidaService } from '../services/comida.service';
 export class ComidaComponent {
   comidas: any[] = [];
 
-  constructor(private comidaService: ComidaService) {}
+  constructor(private comidaService: ComidaService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadComidas();
@@ -22,6 +22,10 @@ export class ComidaComponent {
     this.comidaService.listarComidas().subscribe(data => {
       this.comidas = data;
     });
+  }
+
+  createComida() {
+    this.router.navigate(['/create-comida']);
   }
 
 }

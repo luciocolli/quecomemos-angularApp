@@ -14,13 +14,18 @@ export interface Comida {
   providedIn: 'root', // Este servicio estará disponible en toda la aplicación.
 })
 export class ComidaService {
-  private apiUrl = 'http://127.0.0.1:8080/comidas/listarComidas';
+  private apiUrl = 'http://127.0.0.1:8080/comidas';
 
   constructor(private http: HttpClient) {}
 
   // Método para obtener el listado de comidas
   listarComidas(): Observable<Comida[]> {
-    return this.http.get<Comida[]>(this.apiUrl);
+    return this.http.get<Comida[]>(`${this.apiUrl}/listarComidas`);
   }
+
+  crearComida(comidaData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/crearComida`, comidaData);
+  }
+  
 }
 
