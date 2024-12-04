@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComidaComponent } from './comida.component';
+import { CrearComidaFormComponent } from './crear-comida-form.component';
 
-describe('ComidaComponent', () => {
-  let component: ComidaComponent;
-  let fixture: ComponentFixture<ComidaComponent>;
+describe('CrearComidaFormComponent', () => {
+  let component: CrearComidaFormComponent;
+  let fixture: ComponentFixture<CrearComidaFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComidaComponent]
+      imports: [CrearComidaFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ComidaComponent);
+    fixture = TestBed.createComponent(CrearComidaFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,4 +21,3 @@ describe('ComidaComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

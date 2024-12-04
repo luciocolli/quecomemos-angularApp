@@ -1,1 +1,29 @@
-<p>comida works!</p>
+<div class="container">
+  <h1>Comidas</h1>
+
+  <div class="actions">
+    <button>Crear comida</button>
+  </div>
+
+  <div *ngIf="comidas.length === 0" class="no-comidas">
+    <p>No hay comidas registrados.</p>
+  </div>
+
+  <table *ngIf="comidas.length > 0">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comida of comidas">
+        <td>{{ comida.nombre }}</td>
+        <td>{{ comida.precio }}</td>
+        <td>
+          <button>Actualizar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

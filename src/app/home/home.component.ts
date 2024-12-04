@@ -13,4 +13,8 @@ export class HomeComponent {
   navigateToMenus() {
     this.router.navigate(['/menus']);
   }
+
+  navigateToComidas() {
+    this.router.navigate(['/comidas']);
+  }
 }
