@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ isUpdating ? 'Actualizar Menu' : 'Crear Menu' }}</title>
-    <link rel="stylesheet" href="./menu-form.component.css">
-</head>
-<body>
+
+
+    <div *ngIf="successMessage" class="message success">
+        {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="message error">
+        {{ errorMessage }}
+    </div>
 
     <h1>{{ isUpdating ? 'Actualizar Menu' : 'Crear Menu' }}</h1>
     <h2>Ingrese los datos:</h2>
@@ -25,8 +24,8 @@
     
         <label for="menuDelDiaId">Menu del Dia</label>
         <select id="menuDelDiaId" formControlName="menuDelDiaId" [value]="isUpdating ? menuForm.get('menuDelDiaId')?.value : null">
-        <option *ngFor="let menuDelDia of menusDelDia" [value]="menuDelDia.id">
-            {{ menuDelDia.id }}
+        <option *ngFor="let menuDelDia of menusDelDia" [value]="menuDelDia">
+            {{ menuDelDia }}
         </option>
         </select>
     
@@ -44,5 +43,3 @@
         <button type="submit">{{ isUpdating ? 'Actualizar' : 'Crear' }}</button>
         <button type="button" (click)="navigateToMenus()" >Volver a Menus</button>
     </form>
-
-</body>

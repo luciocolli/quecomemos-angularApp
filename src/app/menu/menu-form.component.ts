@@ -10,7 +10,7 @@ import { ComidaService } from '../services/comida.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './menu-form.component.html',
-  styleUrls: []
+  styleUrls: ['./menu-form.component.css']
 })
 export class MenuFormComponent implements OnInit {
   menuForm: FormGroup;
@@ -18,6 +18,8 @@ export class MenuFormComponent implements OnInit {
   menusDelDia: any[] = [];
   isUpdating: boolean = false;
   currentMenuId: number | null = null;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder, private menuService: MenuService, private route: ActivatedRoute, private router: Router) {
     this.menuForm = this.fb.group({
@@ -31,7 +33,14 @@ export class MenuFormComponent implements OnInit {
 
   ngOnInit(): void {
     //this.comidaService.getComidas().subscribe(data => this.comidas = data);  // falta implementar el servicio getComidas
-    //this.menuDelDiaService.getMenusDelDia().subscribe(data => this.menusDelDia = data);  // debo crear un endpoint que me traiga los menus del dia
+    this.menuService.getMenusDelDia().subscribe(data => { 
+      this.menusDelDia = data;
+      
+      // Si hay IDs y el formulario aún no tiene un valor para menuDelDiaId, establece el primero como predeterminado
+      if (this.menusDelDia.length > 0 && !this.isUpdating) {
+        this.menuForm.patchValue({ menuDelDiaId: this.menusDelDia[0] });
+      }
+    });
     
     // Detectar si estamos editando
     this.route.paramMap.subscribe(params => {
@@ -54,19 +63,25 @@ export class MenuFormComponent implements OnInit {
         // Actualizar menú
         this.menuService.updateMenu(this.currentMenuId, menuData).subscribe({
           next: () => {
-            console.log('Menú actualizado exitosamente.');
-            this.router.navigate(['/menus']); // Redirigir al listado
+            this.successMessage = 'Menu actualizado exitosamente.';
+            this.errorMessage = null;
           },
-          error: error => console.error('Error al actualizar el menú:', error)
+          error: () => {
+            this.errorMessage = 'Error al actualizar el menu: ';
+            this.successMessage = null;
+          }
         });
       } else {
         // Crear nuevo menú
         this.menuService.createMenu(menuData).subscribe({
           next: () => {
-            console.log('Menú creado exitosamente.');
-            this.router.navigate(['/menus']); // Redirigir al listado
+            this.successMessage = 'Menu creado exitosamente.';
+            this.errorMessage = null;
           },
-          error: error => console.error('Error al crear el menú:', error)
+          error:() => {
+            this.errorMessage = 'Error al crear el menu: ';
+            this.successMessage = null;
+          }
         });
       }
   }

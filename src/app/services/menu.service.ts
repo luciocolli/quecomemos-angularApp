@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MenuService {
-  private url = 'http://localhost:8080/menus';
+  private url = 'http://localhost:8080/menus';  // agregar 'seguro' a la ruta
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +24,10 @@ export class MenuService {
 
   getMenuById(id: number): Observable<any> {
     return this.http.get<any>(`${this.url}/showMenu/${id}`);
+  }
+
+  getMenusDelDia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/menusDelDia`);
   }
 
 }
