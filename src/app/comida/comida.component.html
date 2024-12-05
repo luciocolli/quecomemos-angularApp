@@ -26,4 +26,17 @@
       </tr>
     </tbody>
   </table>
+  <!-- Paginación -->
+  <div class="pagination">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage <= 0">
+      Anterior
+    </button>
+    <span>Página {{ currentPage + 1 }} de {{ totalPages() }}</span>
+    <button
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage >= totalPages() - 1"
+    >
+      Siguiente
+    </button>
+  </div>
 </div>

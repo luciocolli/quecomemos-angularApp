@@ -91,3 +91,18 @@ table td button:hover {
   color: #555;
   margin-top: 20px;
 }
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  margin: 0 10px;
+}
+
+.pagination span {
+  font-size: 16px;
+}
