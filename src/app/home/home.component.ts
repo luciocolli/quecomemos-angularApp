@@ -3,18 +3,10 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   constructor(private router: Router) {}
 
-  navigateToMenus() {
-    this.router.navigate(['/menus']);
-  }
-
-  navigateToComidas() {
-    this.router.navigate(['/comidas']);
-  }
 }
