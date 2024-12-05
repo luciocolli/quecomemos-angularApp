@@ -12,5 +12,6 @@ export const routes: Routes = [
     {path: 'create-menu', component: MenuFormComponent},
     {path: 'update-menu/:id', component: MenuFormComponent},
     {path: 'comidas', component: ComidaComponent},
-    {path: 'create-comida', component: CrearComidaFormComponent}
+    {path: 'create-comida', component: CrearComidaFormComponent},
+    {path: 'update-comida/:id', component: CrearComidaFormComponent}
 ];

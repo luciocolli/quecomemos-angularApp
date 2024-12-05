@@ -21,7 +21,7 @@
         <td>{{ comida.nombre }}</td>
         <td>{{ comida.precio }}</td>
         <td>
-          <button>Actualizar</button>
+          <button (click)="updateComida(comida.id)">Actualizar</button>
         </td>
       </tr>
     </tbody>

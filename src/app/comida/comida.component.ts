@@ -28,5 +28,9 @@ export class ComidaComponent {
     this.router.navigate(['/create-comida']);
   }
 
+  updateComida(id: number) {
+    this.router.navigate([`/update-comida/${id}`]);
+  }
+
 }
 

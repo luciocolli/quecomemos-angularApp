@@ -26,6 +26,14 @@ export class ComidaService {
   crearComida(comidaData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/crearComida`, comidaData);
   }
+
+  updateComida(id: number, comidaData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/editarComida/${id}`, comidaData);
+  }
+
+  getComidaById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/verComida/${id}`);
+  }
   
 }
 
