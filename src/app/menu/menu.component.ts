@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class MenuComponent {
   menus: any[] = [];
+  currentPage: number = 0; // Página actual
+  totalItems: number = 0; // Total de elementos (para la paginación)
+  pageSize: number = 5; // Número de elementos por página
 
   constructor(private menuService: MenuService, private router: Router) {}
 
@@ -18,10 +21,22 @@ export class MenuComponent {
     this.loadMenus();
   }
 
-  loadMenus() {
-    this.menuService.getAllMenus().subscribe(data => {
-      this.menus = data;
+  loadMenus(page: number = this.currentPage) {
+    this.menuService.getAllMenus(page, this.pageSize).subscribe(data => {
+      this.menus = data.menus;  // La lista de menús
+      this.totalItems = data.totalItems;  // El total de elementos
+      this.currentPage = page;  // Actualizamos la página actual
     });
+  }
+
+  // Funciones para ir a la siguiente y anterior página
+  goToPage(page: number) {
+    if (page < 0 || page >= this.totalPages()) return; // No ir fuera de los límites
+    this.loadMenus(page);
+  }
+
+  totalPages() {
+    return Math.ceil(this.totalItems / this.pageSize);  // Total de páginas disponibles
   }
 
   createMenu() {

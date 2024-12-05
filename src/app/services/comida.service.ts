@@ -27,6 +27,11 @@ export class ComidaService {
     return this.http.get<any>(`${this.apiUrl}/listarComidas`, { params });
   }
 
+  // para formulario de menus
+  getComidas(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/obtenerComidas`);
+  }
+
   crearComida(comidaData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/crearComida`, comidaData);
   }

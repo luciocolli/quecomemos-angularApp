@@ -35,7 +35,7 @@ export class MenuFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comidaService.listarComidas().subscribe((data) =>{
+    this.comidaService.getComidas().subscribe((data) =>{
         this.comidas = data;
         this.filteredComidas = data;  // inicialmente, mostrar todas las comidas
       }); 
