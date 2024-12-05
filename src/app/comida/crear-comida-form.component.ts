@@ -6,9 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crear-comida-form',
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './crear-comida-form.component.html',
-  styleUrl: './crear-comida-form.component.css'
+  styleUrl: './crear-comida-form.component.css',
 })
 export class CrearComidaFormComponent {
   comidaForm: FormGroup;
@@ -16,76 +16,89 @@ export class CrearComidaFormComponent {
   currentComidaId: number | null = null;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  originalComida: any = {}; // Guardará los valores originales para comparar
 
-  constructor(private fb: FormBuilder, private comidaService: ComidaService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private comidaService: ComidaService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.comidaForm = this.fb.group({
       nombre: ['', Validators.required],
-      precio: ['', Validators.required]
+      precio: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     // Detectar si estamos editando
-    this.route.paramMap.subscribe(params => {
-        const id = params.get('id');
-        if (id) {
-          this.isUpdating = true;
-          this.currentComidaId = +id;
-          this.comidaService.getComidaById(this.currentComidaId).subscribe(comida => {
-            this.comidaForm.patchValue(comida);
-          });
-        }
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.isUpdating = true;
+        this.currentComidaId = +id;
+        this.comidaService.getComidaById(this.currentComidaId).subscribe((comida) => {
+          this.comidaForm.patchValue(comida);
+          this.originalComida = { ...comida }; // Guarda los valores originales
+        });
+      }
     });
-
   }
 
   submit() {
-    const comidaData = this.comidaForm.value;
-  
+    const updatedFields: any = {};
+
+    // Compara los valores actuales con los originales para detectar cambios
+    Object.keys(this.comidaForm.controls).forEach((key) => {
+      const originalValue = this.originalComida[key];
+      const currentValue = this.comidaForm.get(key)?.value;
+
+      if ((currentValue !== "") && (currentValue !== originalValue)) {
+        updatedFields[key] = currentValue; // Solo incluir los campos modificados
+      }
+    });
+
     if (this.isUpdating && this.currentComidaId) {
-      // Actualizar comida
-      this.comidaService.updateComida(this.currentComidaId, comidaData).subscribe({
-        next: (response) => { 
-          this.successMessage = 'Comida actualizada exitosamente.'; // Mensaje para éxito
+      // Actualizar comida con solo los campos editados
+      this.comidaService.updateComida(this.currentComidaId, updatedFields).subscribe({
+        next: (response) => {
+          this.successMessage = response?.message || 'Comida actualizada exitosamente.';
           this.errorMessage = null;
+          this.clearMessages();
         },
         error: (error) => {
-          if (error.status === 500) {
-            this.errorMessage = 'Error interno del servidor al actualizar la comida.';
-          } else if (error.status === 404) {
-            this.errorMessage = 'No se encontró la comida para actualizar.';
-          } else {
-            this.errorMessage = 'Error desconocido al actualizar la comida.';
-          }
+          this.errorMessage = error?.error?.message || 'Error al actualizar la comida.';
           this.successMessage = null;
-        }
+          this.clearMessages();
+        },
       });
     } else {
-      // Crear comida
-      this.comidaService.crearComida(comidaData).subscribe({
-        next: (response) => { 
-          this.successMessage = 'Comida creada exitosamente.'; // Mensaje para éxito
+      // Crear comida normalmente
+      this.comidaService.crearComida(updatedFields).subscribe({
+        next: (response) => {
+          this.successMessage = response?.message || 'Comida creada exitosamente.';
           this.errorMessage = null;
+          this.clearMessages();
         },
         error: (error) => {
-          if (error.status === 500) {
-            this.errorMessage = 'Error interno del servidor al crear la comida.';
-          } else if (error.status === 400) {
-            this.errorMessage = 'Datos inválidos para crear la comida.';
-          } else {
-            this.errorMessage = 'Error desconocido al crear la comida.';
-          }
+          this.errorMessage = error?.error?.message || 'Error al crear la comida.';
           this.successMessage = null;
-        }
+          this.clearMessages();
+        },
       });
     }
   }
-  
-  
+
+  // Función para limpiar los mensajes después de un tiempo
+  clearMessages() {
+    setTimeout(() => {
+      this.successMessage = null;
+      this.errorMessage = null;
+      this.navigateToComidas();
+    }, 3000); // Elimina el mensaje después de 3 segundos
+  }
 
   navigateToComidas() {
     this.router.navigate(['/comidas']);
   }
-
 }
-
