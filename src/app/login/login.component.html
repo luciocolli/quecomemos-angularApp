@@ -1,41 +1,53 @@
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Iniciar Sesión</h2>
-  
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="w-50 mx-auto">
-      <!-- Email Input -->
-      <div class="mb-3">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="email"
-          required
-        />
+<div class="container mt-5" style="align-items: center; height: 70vh;">
+  <!-- Login Box -->
+  <div class="card shadow mx-auto" style="max-width: 700px;">
+    <div class="card-body" style="width: 650px;">
+      <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+      <!-- Error Alert -->
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ errorMensaje }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="close()" aria-label="Close"></button>
       </div>
-  
-      <!-- Password Input -->
-      <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="password"
-          required
-        />
-      </div>
-  
-      <!-- Submit Button -->
-      <button
-        type="submit"
-        class="btn btn-primary w-100"
-        [disabled]="!loginForm.valid"
-      >
-        Iniciar Sesión
-      </button>
-    </form>
+
+      <!-- Login Form -->
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <!-- Email Input -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
+        </div>
+
+        <!-- Password Input -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="!loginForm.valid || loading"
+        >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="!loading">Iniciar Sesión</span>
+        </button>
+      </form>
+    </div>
   </div>
-  
+</div>

@@ -20,3 +20,9 @@
     color: rgb(255, 255, 0); /* Change color to yellow on hover */
     text-decoration: underline; /* Underline on hover */
   }
+
+  @media (max-width: 768px) {
+    .navbar img {
+      max-height: 50px; /* Adjust image size for smaller screens */
+    }
+  }

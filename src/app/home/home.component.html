@@ -18,13 +18,24 @@
     </div>
 
     <!-- Text on the Right -->
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="isLoggedIn">
       <p class="fw-bold text-end">
         Explora nuestras opciones y disfruta de tu almuerzo mientras te concentras en tus estudios.
       </p>
       <div class="text-end">
-        <button class="btn btn-primary btn-lg" routerLink="/menus">
+        <button class="btn btn-primary btn-lg" (click)="goToMenus()">
           Ver Menús del Día
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="!isLoggedIn">
+      <p class="fw-bold text-end">
+        ¿Tienes una cuenta? Inicia sesión para disfrutar de los beneficios de nuestro buffet.
+      </p>
+      <div class="text-end">
+        <button class="btn btn-primary btn-lg" (click)="goToLogin()">
+          Iniciar Sesión
         </button>
       </div>
     </div>

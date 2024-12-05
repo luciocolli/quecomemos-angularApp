@@ -2,18 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+interface Response {
+  token: string;
+  ok: boolean;
+  message: string;
+  data: any;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  apiUrl = 'http://localhost:8080';
+  apiUrl = 'http://localhost:8080/usuarios';
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<Response> {
     const body = { email, password };
-    return this.http.post(`${this.apiUrl}/login`, body);
+    return this.http.post<Response>(`${this.apiUrl}/login`, body);
+  }
+
+  editarPerfil(usuario: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/perfil`, usuario);
+  }
+
+  registrarUsuario(usuario: any): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/registrarCliente`, usuario);
+  }
+
+  getUsuario(email: string): Observable<any> {
+    const body = { email };
+    return this.http.post<Response>(`${this.apiUrl}/getUsuario`, body);
   }
 
 }
