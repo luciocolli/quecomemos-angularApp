@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // Define la estructura del modelo Comida (opcional, pero recomendado)
@@ -18,13 +18,25 @@ export class ComidaService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener el listado de comidas
-  listarComidas(): Observable<Comida[]> {
-    return this.http.get<Comida[]>(`${this.apiUrl}/listarComidas`);
+  /// Método para listar comidas con paginación
+  listarComidas(page: number = 0, size: number = 5): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get<any>(`${this.apiUrl}/listarComidas`, { params });
   }
 
   crearComida(comidaData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/crearComida`, comidaData);
+  }
+
+  updateComida(id: number, comidaData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/editarComida/${id}`, comidaData);
+  }
+
+  getComidaById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/verComida/${id}`);
   }
   
 }
