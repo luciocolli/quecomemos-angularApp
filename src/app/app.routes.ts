@@ -4,6 +4,7 @@ import { MenuFormComponent } from './menu/menu-form.component';
 import { HomeComponent } from './home/home.component';
 import { ComidaComponent } from './comida/comida.component';
 import { CrearComidaFormComponent } from './comida/crear-comida-form.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'create-menu', component: MenuFormComponent},
     {path: 'update-menu/:id', component: MenuFormComponent},
     {path: 'comidas', component: ComidaComponent},
-    {path: 'create-comida', component: CrearComidaFormComponent}
+    {path: 'create-comida', component: CrearComidaFormComponent},
+    {path: 'login', component: LoginComponent}
 ];
