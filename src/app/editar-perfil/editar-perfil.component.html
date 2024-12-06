@@ -1,0 +1,105 @@
+<div class="container mt-5" style="max-width: 1000px;">
+    <h2 class="text-center mb-4">Editar Perfil</h2>
+  
+    <!-- User Photo -->
+    <div class="text-center mb-4">
+      <img
+        [src]="usuario.imagen"
+        alt="Foto de perfil"
+        class="img-thumbnail"
+        style="width: 150px; height: 150px; object-fit: cover;"
+      />
+    </div>
+  
+    <!-- Form to Edit User Details -->
+    <form (ngSubmit)="onSubmit()" #editarForm="ngForm" enctype="multipart/form-data">
+      <!-- DNI -->
+      <div *ngIf="success" class="alert alert-success">{{ message }}</div>
+      <div *ngIf="error" class="alert alert-danger">{{ message }}</div>
+      <div class="mb-3">
+        <label for="dni" class="form-label">DNI</label>
+        <input
+          type="text"
+          id="dni"
+          class="form-control"
+          [(ngModel)]="usuario.dni"
+          name="dni"
+          required
+        />
+      </div>
+  
+      <!-- Nombres -->
+      <div class="mb-3">
+        <label for="nombres" class="form-label">Nombres</label>
+        <input
+          type="text"
+          id="nombres"
+          class="form-control"
+          [(ngModel)]="usuario.nombres"
+          name="nombres"
+          required
+        />
+      </div>
+  
+      <!-- Apellidos -->
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input
+          type="text"
+          id="apellidos"
+          class="form-control"
+          [(ngModel)]="usuario.apellidos"
+          name="apellidos"
+          required
+        />
+      </div>
+  
+      <!-- Correo Electrónico -->
+      <div class="mb-3">
+        <label for="mail" class="form-label">Correo Electrónico</label>
+        <input
+          type="email"
+          id="mail"
+          class="form-control"
+          [(ngModel)]="usuario.mail"
+          name="mail"
+          required
+        />
+      </div>
+  
+      <!-- Contraseña -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          [(ngModel)]="usuario.password"
+          name="password"
+          required
+        />
+      </div>
+  
+      <!-- Upload New Photo -->
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Foto de perfil</label>
+        <input
+          type="file"
+          id="imagen"
+          class="form-control"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+  
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="!editarForm.valid || loading"
+      >
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="!loading">Guardar Cambios</span>
+      </button>
+    </form>
+  </div>
+  
