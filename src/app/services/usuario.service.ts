@@ -23,7 +23,7 @@ export class UsuarioService {
   }
 
   editarPerfil(usuario: any): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/editarUsuario`, usuario);
+    return this.http.post<Response>(`${this.apiUrl}/seguro/editarUsuario`, usuario);
   }
 
   registrarUsuario(usuario: any): Observable<Response> {
