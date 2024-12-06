@@ -30,8 +30,8 @@ export class UsuarioService {
     return this.http.post<Response>(`${this.apiUrl}/registrarCliente`, usuario);
   }
 
-  getUsuario(email: any): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/getUsuario`, email);
+  getUsuario(email: any): Observable<Response> { 
+    return this.http.post<Response>(`${this.apiUrl}/seguro/getUsuario`, email);
   }
 
 }

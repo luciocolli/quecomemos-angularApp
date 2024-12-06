@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
       // If user is logged in, allow access
+      console.log('User is logged in');
       return true;
     } else {
       // Redirect to login page if not logged in

@@ -1,7 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('jwtToken'); // Get the JWT token from localStorage
+  let token = null;
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    token = localStorage.getItem('jwtToken'); // Get the JWT token from localStorage
+  } 
+
+
 
   if (req.url.includes('/login')) {
     return next(req); // Pass the request without modifying it
@@ -17,4 +22,6 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req); // Pass the request to the next handler
+
 };
+

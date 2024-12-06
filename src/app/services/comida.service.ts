@@ -24,24 +24,24 @@ export class ComidaService {
       .set('page', page.toString())
       .set('size', size.toString());
 
-    return this.http.get<any>(`${this.apiUrl}/listarComidas`, { params });
+    return this.http.get<any>(`${this.apiUrl}/seguro/listarComidas`, { params });
   }
 
   // para formulario de menus
   getComidas(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/obtenerComidas`);
+    return this.http.get<any>(`${this.apiUrl}/seguro/obtenerComidas`);
   }
 
   crearComida(comidaData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/crearComida`, comidaData);
+    return this.http.post<any>(`${this.apiUrl}/seguro/crearComida`, comidaData);
   }
 
   updateComida(id: number, comidaData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/editarComida/${id}`, comidaData);
+    return this.http.put<any>(`${this.apiUrl}/seguro/editarComida/${id}`, comidaData);
   }
 
   getComidaById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/verComida/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/seguro/verComida/${id}`);
   }
   
 }

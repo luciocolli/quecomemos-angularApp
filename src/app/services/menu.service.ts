@@ -16,27 +16,27 @@ export class MenuService {
     .set('page', page.toString())
     .set('size', size.toString());
 
-    return this.http.get<any>(`${this.url}/showMenus`, { params });
+    return this.http.get<any>(`${this.url}/seguro/showMenus`, { params });
   }
 
   getMenus(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/showAllMenus`);
+    return this.http.get<any[]>(`${this.url}/seguro/showAllMenus`);
   }
 
   createMenu(menuData: any): Observable<any> {
-    return this.http.post<any>(`${this.url}/createMenu`, menuData);
+    return this.http.post<any>(`${this.url}/seguro/createMenu`, menuData);
   }
 
   updateMenu(id: number, menuData: any): Observable<any> {
-    return this.http.put<any>(`${this.url}/updateMenu/${id}`, menuData);
+    return this.http.put<any>(`${this.url}/seguro/updateMenu/${id}`, menuData);
   }
 
   getMenuById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/showMenu/${id}`);
+    return this.http.get<any>(`${this.url}/seguro/showMenu/${id}`);
   }
 
   getMenusDelDia(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/menusDelDia`);
+    return this.http.get<any[]>(`${this.url}/seguro/menusDelDia`);
   }
 
 }
