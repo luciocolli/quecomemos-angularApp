@@ -28,9 +28,13 @@
             {{ menuDelDia }}
         </option>
         </select>
+
+        <label>Buscar Comidas</label>
+        <input type="text" [(ngModel)]="searchQuery" (input)="filterComidas()" placeholder="Buscar comidas" [ngModelOptions]="{ standalone: true }" />
+
     
         <label>Comidas</label>
-        <div *ngFor="let comida of comidas">
+        <div *ngFor="let comida of getVisibleComidas()">
         <input 
             type="checkbox" 
             [value]="comida.id" 
