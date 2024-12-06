@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Menús del Día</h1>
+
+  <div class="cards">
+    <div class="card" *ngFor="let menu of randomMenus">
+      <h3>{{ menu.nombre }}</h3>
+
+      <p>
+        <strong>Menú Vegetariano:</strong> {{ menu.vegetariano ? "SI" : "NO" }}
+      </p>
+      <p>
+        <strong>Apto para Celíacos:</strong>
+        {{ menu.aptoCeliacos ? "SI" : "NO" }}
+      </p>
+    </div>
+  </div>
+</div>

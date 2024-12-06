@@ -1,29 +1,33 @@
-<div class="container mt-5" style="max-width:unset">
+<div class="container mt-5" style="max-width: unset">
   <!-- Welcome Section -->
   <h1 class="mb-4 text-center">¡Bienvenido a "¿Qué Comemos?"!</h1>
   <p class="lead text-center">
-    Este es el sitio oficial del buffet de la Facultad de Informática de la Universidad Nacional de La Plata. Aquí podrás descubrir los menús disponibles, conocer las opciones del día y gestionar tus pedidos de manera rápida y sencilla.
+    Este es el sitio oficial del buffet de la Facultad de Informática de la
+    Universidad Nacional de La Plata. Aquí podrás descubrir los menús
+    disponibles, conocer las opciones del día y gestionar tus pedidos de manera
+    rápida y sencilla.
   </p>
 
   <!-- Image and Text Section -->
   <div class="row align-items-center mt-4">
     <!-- Image on the Left -->
     <div class="col-md-6 text-center">
-      <img 
-        src="/assets/images/buffet.JPG" 
-        alt="Buffet de la Facultad de Informática" 
+      <img
+        src="/assets/images/buffet.JPG"
+        alt="Buffet de la Facultad de Informática"
         class="img-fluid rounded shadow"
-        style="max-width: 80%;"
+        style="max-width: 80%"
       />
     </div>
 
     <!-- Text on the Right -->
     <div class="col-md-6">
       <p class="fw-bold text-end">
-        Explora nuestras opciones y disfruta de tu almuerzo mientras te concentras en tus estudios.
+        Explora nuestras opciones y disfruta de tu almuerzo mientras te
+        concentras en tus estudios.
       </p>
       <div class="text-end">
-        <button class="btn btn-primary btn-lg" routerLink="/menus">
+        <button class="btn btn-primary btn-lg" (click)="viewMenus()">
           Ver Menús del Día
         </button>
       </div>
