@@ -19,7 +19,7 @@ export const routes: Routes = [
     {path: 'comidas', component: ComidaComponent},
     {path: 'create-comida', component: CrearComidaFormComponent},
     {path: 'update-comida/:id', component: CrearComidaFormComponent},
-    {path: 'show-menus-random', component: LoginComponent},
+    {path: 'show-menus-random', component: MenusDelDiaComponent},
     {path: 'login', component: LoginComponent},
     {
         path: 'registrarUsuario', 

@@ -19,6 +19,10 @@ export class MenuService {
     return this.http.get<any>(`${this.url}/showMenus`, { params });
   }
 
+  getMenus(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/showAllMenus`);
+  }
+
   createMenu(menuData: any): Observable<any> {
     return this.http.post<any>(`${this.url}/createMenu`, menuData);
   }
