@@ -10,12 +10,56 @@ import { AuthGuard } from './auth.guard';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 
 export const routes: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent},
-    {path: 'menus', component: MenuComponent},
-    {path: 'create-menu', component: MenuFormComponent},
-    {path: 'update-menu/:id', component: MenuFormComponent},
-    {path: 'comidas', component: ComidaComponent},
-    {path: 'create-comida', component: CrearComidaFormComponent},
-    {path: 'login', component: LoginComponent}
+    {
+        path: '', 
+        redirectTo: '/home', 
+        pathMatch: 'full',
+    },
+    {
+        path: 'home', 
+        component: HomeComponent,
+    },
+    {
+        path: 'menus', 
+        component: MenuComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'create-menu', 
+        component: MenuFormComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'update-menu/:id', 
+        component: MenuFormComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'comidas', 
+        component: ComidaComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'create-comida', 
+        component: CrearComidaFormComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'login', 
+        component: LoginComponent
+    },
+    {
+        path: 'registrarUsuario', 
+        component: RegistrarUsuarioComponent
+    },
+    {
+        path: 'editarPerfil',
+        component: EditarPerfilComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'update-comida/:id', 
+        component: CrearComidaFormComponent,
+        canActivate: [AuthGuard],
+    }
 ];
