@@ -13,6 +13,10 @@ export class EditarPerfilComponent {
   usuario: any = {}; // User information
   selectedFile: File | null = null; // To handle file upload
   loading: boolean = false; // Spinner indicator
+  fotoBase64: any = null; // Store Base64 string
+  message: string = ''; // Success message
+  error: boolean = false; // Error indicator
+  success: boolean = false; // Success indicator
 
   constructor(private usuarioService: UsuarioService) {}
 
@@ -22,49 +26,69 @@ export class EditarPerfilComponent {
 
   // Load current user details
   loadUsuario(): void {
-    this.usuarioService.getUsuario(localStorage.getItem('email')!).subscribe(
-      (data) => {
-        this.usuario = data;
+    this.usuarioService.getUsuario({email: localStorage.getItem('email')}).subscribe({
+      next: (response) => {
+        this.usuario = response.data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al cargar el usuario:', error);
-      }
-    );
+      },
+    });
   }
 
   // Handle file selection
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.fotoBase64 = reader.result as string; // Convert image to Base64
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   // Handle form submission
   onSubmit(): void {
+    if (!this.usuario.dni || !this.usuario.nombres || !this.usuario.apellidos || !this.usuario.mail || !this.usuario.password) {
+      console.log(this.usuario);
+      this.error = true;
+      this.message = 'Todos los campos son obligatorios.';
+      return;
+    }
     this.loading = true;
+    this.success = false;
+    this.error = false;
 
-    const formData = new FormData();
-    formData.append('dni', this.usuario.dni);
-    formData.append('nombres', this.usuario.nombres);
-    formData.append('apellidos', this.usuario.apellidos);
-    formData.append('mail', this.usuario.mail);
-    formData.append('password', this.usuario.password);
+    const payload = {
+      id: this.usuario.id,
+      dni: this.usuario.dni,
+      nombres: this.usuario.nombres,
+      apellidos: this.usuario.apellidos,
+      email: this.usuario.mail,
+      password: this.usuario.password,
+      imagen: this.fotoBase64, // Send Base64 string
+    };
 
     // Append the file only if a new file was selected
-    if (this.selectedFile) {
-      formData.append('imagen', this.selectedFile, this.selectedFile.name);
-    }
 
-    this.usuarioService.editarPerfil(formData).subscribe(
-      (response) => {
+    this.usuarioService.editarPerfil(payload).subscribe({
+      next: (response) => {
         console.log('Usuario actualizado:', response);
-        alert('Perfil actualizado exitosamente.');
         this.loading = false;
+        this.message = 'Se modificaron los datos exitosamente.';
+        this.success = true;
         this.loadUsuario(); // Refresh the user details
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al actualizar el usuario:', error);
-        alert('Ocurrió un error al actualizar el perfil.');
+        this.success = false;
+        this.message = 'Ocurrió un error al actualizar el perfil.';
+        this.error = true;
         this.loading = false;
       }
+
+    }
     );
   }
 }

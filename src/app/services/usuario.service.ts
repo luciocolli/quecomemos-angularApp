@@ -22,17 +22,16 @@ export class UsuarioService {
     return this.http.post<Response>(`${this.apiUrl}/login`, body);
   }
 
-  editarPerfil(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/perfil`, usuario);
+  editarPerfil(usuario: any): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/editarUsuario`, usuario);
   }
 
   registrarUsuario(usuario: any): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/registrarCliente`, usuario);
   }
 
-  getUsuario(email: string): Observable<any> {
-    const body = { email };
-    return this.http.post<Response>(`${this.apiUrl}/getUsuario`, body);
+  getUsuario(email: any): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/getUsuario`, email);
   }
 
 }
